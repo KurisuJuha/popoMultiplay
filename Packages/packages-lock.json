@@ -239,6 +239,27 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
+    "jp.juhakurisu.popoextentions": {
+      "version": "1.3.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "jp.juhakurisu.popomarkup": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "jp.juhakurisu.popoutility": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
