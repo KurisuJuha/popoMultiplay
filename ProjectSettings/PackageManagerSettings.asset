@@ -31,11 +31,18 @@ MonoBehaviour:
     m_Url: https://package.openupm.com
     m_Scopes:
     - com.endel.nativewebsocket
-    - com.openupm
     m_IsDefault: 0
     m_Capabilities: 0
     m_ConfigSource: 4
-  m_UserSelectedRegistryName: package.openupm.com
+  - m_Id: scoped:project:JuhaKurisu
+    m_Name: JuhaKurisu
+    m_Url: https://package.openupm.com
+    m_Scopes:
+    - jp.juhakurisu
+    m_IsDefault: 0
+    m_Capabilities: 0
+    m_ConfigSource: 4
+  m_UserSelectedRegistryName: JuhaKurisu
   m_UserAddingNewScopedRegistry: 0
   m_RegistryInfoDraft:
     m_Modified: 0
