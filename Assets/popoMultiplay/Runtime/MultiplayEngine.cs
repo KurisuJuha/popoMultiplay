@@ -11,6 +11,8 @@ namespace JuhaKurisu.PopoTools.Multiplay
         private readonly TickEventHandler OnTick;
         private readonly ConnectedEventHandler OnConnected;
         private readonly ClosedEventHandler OnClosed;
+        private readonly string url;
+        private readonly WebSocket webSocket;
         private int playerCount;
     }
 }
