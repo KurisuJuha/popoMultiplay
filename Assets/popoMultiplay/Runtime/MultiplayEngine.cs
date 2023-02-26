@@ -8,12 +8,12 @@ namespace JuhaKurisu.PopoTools.Multiplay
     public class MultiplayEngine
     {
         public readonly string url;
+        public int playerCount;
         private readonly Dictionary<ClientID, MultiplayClient> clients = new();
         private readonly TickEventHandler OnTick;
         private readonly ConnectedEventHandler OnConnected;
         private readonly ClosedEventHandler OnClosed;
         private readonly WebSocket webSocket;
-        private int playerCount;
 
         public MultiplayEngine(string url, TickEventHandler OnTick = null, ConnectedEventHandler OnConnected = null, ClosedEventHandler OnClosed = null)
         {
