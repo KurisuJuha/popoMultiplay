@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using NativeWebSocket;
 using JuhaKurisu.PopoTools.ByteSerializer;
 
@@ -9,6 +10,8 @@ namespace JuhaKurisu.PopoTools.Multiplay
     {
         public readonly string url;
         public int playerCount;
+        public ReadOnlyCollection<MultiplayClient> clientArray => new(clients.Values.ToArray());
+        public ReadOnlyDictionary<ClientID, MultiplayClient> clientDictionary => new(clients);
         private readonly Dictionary<ClientID, MultiplayClient> clients = new();
         private readonly TickEventHandler OnTick;
         private readonly ConnectedEventHandler OnConnected;
