@@ -13,5 +13,14 @@ namespace JuhaKurisu.PopoTools.Multiplay
 
             testButton = reader.ReadBoolean();
         }
+
+        internal byte[] Serialize()
+        {
+            DataWriter writer = new();
+
+            writer.Append(testButton);
+
+            return writer.bytes.ToArray();
+        }
     }
 }
