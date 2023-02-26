@@ -1,5 +1,3 @@
-using System;
-
 namespace JuhaKurisu.PopoTools.Multiplay
 {
     public class MultiplayClient
