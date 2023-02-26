@@ -38,6 +38,11 @@ namespace JuhaKurisu.PopoTools.Multiplay
             clients.Clear();
         }
 
+        private void SendInput()
+        {
+            webSocket.Send(MultiplayInput.NewInput().Serialize());
+        }
+
         private void OnBytes(byte[] bytes)
         {
             HashSet<ClientID> oldClientIDs = clients.Keys.ToHashSet();
