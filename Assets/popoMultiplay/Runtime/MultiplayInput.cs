@@ -5,20 +5,20 @@ namespace JuhaKurisu.PopoTools.Multiplay
 {
     public struct MultiplayInput
     {
-        public readonly bool testButton;
+        public readonly bool spaceButton;
 
         internal MultiplayInput(byte[] bytes)
         {
             DataReader reader = new(bytes);
 
-            testButton = reader.ReadBoolean();
+            spaceButton = reader.ReadBoolean();
         }
 
         internal byte[] Serialize()
         {
             DataWriter writer = new();
 
-            writer.Append(testButton);
+            writer.Append(spaceButton);
 
             return writer.bytes.ToArray();
         }
