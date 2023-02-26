@@ -2,6 +2,9 @@
     "name": "jp.juhakurisu.popomultiplay",
     "displayName": "popoMultiplay",
     "version": "0.0.0",
+    "dependencies": {
+        "com.endel.nativewebsocket@1.1.4": "1.1.4"
+    },
     "author": {
         "name": "JuhaKurisu"
     }
