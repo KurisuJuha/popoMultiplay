@@ -32,5 +32,11 @@ namespace JuhaKurisu.PopoTools.Multiplay
             webSocket.Connect();
         }
 
+        public void End()
+        {
+            webSocket.Close();
+            clients.Clear();
+        }
+
     }
 }
