@@ -22,5 +22,10 @@ namespace JuhaKurisu.PopoTools.Multiplay
 
             return writer.bytes.ToArray();
         }
+
+        internal static MultiplayInput NewInput()
+        {
+            return new MultiplayInput();
+        }
     }
 }
