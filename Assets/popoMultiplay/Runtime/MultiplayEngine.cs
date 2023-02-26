@@ -73,6 +73,10 @@ namespace JuhaKurisu.PopoTools.Multiplay
 
             // 残ったプレイヤーの存在を消す
             foreach (var id in oldClientIDs) clients.Remove(id);
+
+            // サーバーに最新のinput情報を送る
+            SendInput();
+
         }
     }
 }
