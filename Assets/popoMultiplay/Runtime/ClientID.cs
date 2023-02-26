@@ -10,5 +10,10 @@ namespace JuhaKurisu.PopoTools.Multiplay
         {
             this.id = id;
         }
+
+        public override int GetHashCode()
+        {
+            return id.GetHashCode();
+        }
     }
 }
