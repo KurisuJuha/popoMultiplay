@@ -27,5 +27,10 @@ namespace JuhaKurisu.PopoTools.Multiplay
             webSocket.OnMessage += bytes => OnBytes(bytes);
         }
 
+        public void Start()
+        {
+            webSocket.Connect();
+        }
+
     }
 }
