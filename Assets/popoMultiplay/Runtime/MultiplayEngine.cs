@@ -7,5 +7,7 @@ namespace JuhaKurisu.PopoTools.Multiplay
 {
     public class MultiplayEngine
     {
+        private readonly Dictionary<ClientID, MultiplayClient> clients = new();
+        private int playerCount;
     }
 }
