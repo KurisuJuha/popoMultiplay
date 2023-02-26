@@ -24,7 +24,7 @@ namespace JuhaKurisu.PopoTools.Multiplay
             webSocket = new WebSocket(this.url);
             webSocket.OnOpen += () => OnConnected();
             webSocket.OnClose += closeCode => OnClosed(closeCode);
-            webSocket.OnMessage += bytes => OnBytes(bytes);
+            webSocket.OnMessage += bytes => OnMessage(bytes);
         }
 
         public void Start()
@@ -43,7 +43,7 @@ namespace JuhaKurisu.PopoTools.Multiplay
             webSocket.Send(MultiplayInput.NewInput().Serialize());
         }
 
-        private void OnBytes(byte[] bytes)
+        private void OnMessage(byte[] bytes)
         {
             HashSet<ClientID> oldClientIDs = clients.Keys.ToHashSet();
             DataReader reader = new DataReader(bytes);
