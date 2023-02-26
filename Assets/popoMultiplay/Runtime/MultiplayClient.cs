@@ -6,5 +6,10 @@ namespace JuhaKurisu.PopoTools.Multiplay
     {
         public readonly ClientID id;
         public MultiplayInput input { get; internal set; }
+
+        public MultiplayClient(ClientID id)
+        {
+            this.id = id;
+        }
     }
 }
