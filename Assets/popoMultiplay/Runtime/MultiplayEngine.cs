@@ -38,5 +38,36 @@ namespace JuhaKurisu.PopoTools.Multiplay
             clients.Clear();
         }
 
+        private void OnBytes(byte[] bytes)
+        {
+            HashSet<ClientID> oldClientIDs = clients.Keys.ToHashSet();
+            DataReader reader = new DataReader(bytes);
+
+            // 人数を読み込む
+            playerCount = reader.ReadInt();
+
+            // 人数分読み込む
+            for (int i = 0; i < playerCount; i++)
+            {
+                ClientID id = new(reader.ReadGuid());
+                MultiplayInput input = new(reader.ReadBytes());
+
+                // 見終えたクライアントは消しとく
+                oldClientIDs.Remove(id);
+
+                MultiplayClient client;
+
+                // 既存のプレイヤーであればそのまま設定
+                // 新規のプレイヤーであれば追加
+                if (clients.ContainsKey(id)) client = clients[id];
+                else client = new MultiplayClient(id);
+
+                // 最新のinputをセット
+                client.input = input;
+            }
+
+            // 残ったプレイヤーの存在を消す
+            foreach (var id in oldClientIDs) clients.Remove(id);
+        }
     }
 }
