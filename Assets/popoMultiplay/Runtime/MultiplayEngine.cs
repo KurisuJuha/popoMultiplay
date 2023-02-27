@@ -59,6 +59,18 @@ namespace JuhaKurisu.PopoTools.Multiplay
 
         private void OnMessage(byte[] bytes)
         {
+            // メッセージを読む
+            ReadMessage(bytes);
+
+            // サーバーに最新のinput情報を送る
+            SendInput();
+
+            // ロジックを実行
+            OnTick.Invoke(clients.Values.ToArray());
+        }
+
+        private void ReadMessage(byte[] bytes)
+        {
             HashSet<ClientID> oldClientIDs = clients.Keys.ToHashSet();
             DataReader reader = new DataReader(bytes);
 
@@ -68,8 +80,14 @@ namespace JuhaKurisu.PopoTools.Multiplay
             // 人数分読み込む
             for (int i = 0; i < playerCount; i++)
             {
+                // idを読む
                 ClientID id = new(reader.ReadGuid());
-                MultiplayInput input = new(reader.ReadBytes());
+
+                MultiplayInput input = new MultiplayInput();
+
+                // inputを読む
+                byte[] inputBytes = reader.ReadBytes();
+                if (inputBytes.Length != 0) input = new(inputBytes);
 
                 // 見終えたクライアントは消しとく
                 oldClientIDs.Remove(id);
@@ -91,12 +109,6 @@ namespace JuhaKurisu.PopoTools.Multiplay
 
             // 残ったプレイヤーの存在を消す
             foreach (var id in oldClientIDs) clients.Remove(id);
-
-            // サーバーに最新のinput情報を送る
-            SendInput();
-
-            // ロジックを実行
-            OnTick.Invoke(clients.Values.ToArray());
         }
     }
 }
