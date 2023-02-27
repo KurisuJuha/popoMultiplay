@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using NativeWebSocket;
 using JuhaKurisu.PopoTools.ByteSerializer;
 
@@ -9,9 +10,9 @@ namespace JuhaKurisu.PopoTools.Multiplay
     public class MultiplayEngine
     {
         public readonly string url;
-        public int playerCount;
         public ReadOnlyCollection<MultiplayClient> clientArray => new(clients.Values.ToArray());
         public ReadOnlyDictionary<ClientID, MultiplayClient> clientDictionary => new(clients);
+        public int playerCount { get; private set; }
         private readonly Dictionary<ClientID, MultiplayClient> clients = new();
         private readonly TickEventHandler OnTick;
         private readonly ConnectedEventHandler OnConnected;
@@ -25,19 +26,29 @@ namespace JuhaKurisu.PopoTools.Multiplay
             this.OnConnected = OnConnected;
             this.OnClosed = OnClosed;
             webSocket = new WebSocket(this.url);
-            webSocket.OnOpen += () => OnConnected();
-            webSocket.OnClose += closeCode => OnClosed(closeCode);
+            webSocket.OnOpen += () => UnityEngine.Debug.Log("open");
+            webSocket.OnOpen += () => OnConnected?.Invoke();
+            webSocket.OnClose += closeCode => UnityEngine.Debug.Log($"close: {closeCode}");
+            webSocket.OnClose += closeCode => OnClosed?.Invoke(closeCode);
             webSocket.OnMessage += bytes => OnMessage(bytes);
+            webSocket.OnError += e => UnityEngine.Debug.Log(e);
         }
 
-        public void Start()
+        public async Task Start()
         {
-            webSocket.Connect();
+            await webSocket.Connect();
         }
 
-        public void End()
+        public void Dispatch()
         {
-            webSocket.Close();
+#if !UNITY_WEBGL || UNITY_EDITOR
+            webSocket.DispatchMessageQueue();
+#endif
+        }
+
+        public async Task End()
+        {
+            await webSocket.Close();
             clients.Clear();
         }
 
@@ -68,7 +79,11 @@ namespace JuhaKurisu.PopoTools.Multiplay
                 // 既存のプレイヤーであればそのまま設定
                 // 新規のプレイヤーであれば追加
                 if (clients.ContainsKey(id)) client = clients[id];
-                else client = new MultiplayClient(id);
+                else
+                {
+                    client = new MultiplayClient(id);
+                    clients[id] = client;
+                }
 
                 // 最新のinputをセット
                 client.input = input;
