@@ -25,7 +25,11 @@ namespace JuhaKurisu.PopoTools.Multiplay
 
         internal static MultiplayInput NewInput()
         {
-            return new MultiplayInput();
+            MultiplayInput input = new MultiplayInput();
+
+            input.spaceButton = Input.GetKey(KeyCode.Space);
+
+            return input;
         }
     }
 }
