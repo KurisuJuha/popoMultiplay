@@ -12,5 +12,10 @@ namespace JuhaKurisu.PopoTools.Multiplay
         {
             this.data = new(data);
         }
+
+        public byte[] ToBytes()
+        {
+            return data.ToArray();
+        }
     }
 }
