@@ -2,4 +2,4 @@
 
 ## license表記
  
-[FixedMath](https://github.com/asik/FixedMath.Net)
+[FixedMath.Net](https://github.com/asik/FixedMath.Net)
