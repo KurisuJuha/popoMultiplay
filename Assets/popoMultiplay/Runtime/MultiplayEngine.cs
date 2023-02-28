@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using NativeWebSocket;
 using JuhaKurisu.PopoTools.ByteSerializer;
+using JuhaKurisu.PopoTools.Multiplay.Extentions;
 
 namespace JuhaKurisu.PopoTools.Multiplay
 {
@@ -70,6 +71,20 @@ namespace JuhaKurisu.PopoTools.Multiplay
         }
 
         private void ReadMessage(byte[] bytes)
+        {
+            DataReader reader = new(bytes);
+            Message message = reader.ReadMessage();
+
+            switch (message.type)
+            {
+                case MessageType.Input:
+                    ReadInputMessage(message.data);
+                    break;
+
+            }
+        }
+
+        private void ReadInputMessage(byte[] bytes)
         {
             HashSet<ClientID> oldClientIDs = clients.Keys.ToHashSet();
             DataReader reader = new DataReader(bytes);
