@@ -11,5 +11,12 @@ namespace JuhaKurisu.PopoTools.Multiplay.Extentions
             writer.AppendWithLength(message.data.ToArray());
             return writer;
         }
+
+        public static Message ReadMessage(this DataReader reader)
+        {
+            MessageType type = (MessageType)reader.ReadByte();
+            byte[] data = reader.ReadBytes();
+            return new Message(type, data);
+        }
     }
 }
