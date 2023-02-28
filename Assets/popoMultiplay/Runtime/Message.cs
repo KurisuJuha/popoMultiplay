@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Collections.ObjectModel;
 
 namespace JuhaKurisu.PopoTools.Multiplay
@@ -8,14 +7,9 @@ namespace JuhaKurisu.PopoTools.Multiplay
         public readonly MessageType type;
         public readonly ReadOnlyCollection<byte> data;
 
-        public Message(byte[] data)
+        public Message(MessageType type, byte[] data)
         {
             this.data = new(data);
-        }
-
-        public byte[] ToBytes()
-        {
-            return data.ToArray();
         }
     }
 }
