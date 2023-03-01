@@ -4,7 +4,7 @@ using JuhaKurisu.PopoTools.Multiplay;
 
 public class TestLogic
 {
-    public Dictionary<ClientID, ulong> counter = new();
+    public Dictionary<ClientID, uint> counter = new();
     public int elapsedFrame;
 
     public void Tick(MultiplayClient[] clients)

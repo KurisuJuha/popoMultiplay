@@ -22,7 +22,7 @@ public class Test : PopoBehaviour
     {
         engine.Dispatch();
         text.text = logic.counter
-            .OrderBy(kvp => kvp.Value)
+            .OrderBy(kvp => -(long)kvp.Value)
             .Select(kvp => $"{kvp.Key.id.ToString()}: {kvp.Value}")
             .Join("\n");
     }
