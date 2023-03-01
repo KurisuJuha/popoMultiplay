@@ -79,8 +79,24 @@ namespace JuhaKurisu.PopoTools.Multiplay
                     // ロジックを実行
                     OnTick.Invoke(clients.Values.ToArray());
                     break;
+                case MessageType.InputLog:
+                    ReadInuputLogMessage(message.data);
                     break;
 
+            }
+        }
+
+        private void ReadInuputLogMessage(byte[] bytes)
+        {
+            DataReader reader = new(bytes);
+
+            int logCount = reader.ReadInt();
+
+            for (int i = 0; i < logCount; i++)
+            {
+                ReadInputMessage(reader.ReadBytes());
+                // ロジックを実行
+                OnTick.Invoke(clients.Values.ToArray());
             }
         }
 
