@@ -80,13 +80,13 @@ namespace JuhaKurisu.PopoTools.Multiplay
                     OnTick.Invoke(clients.Values.ToArray());
                     break;
                 case MessageType.InputLog:
-                    ReadInuputLogMessage(message.data);
+                    ReadInputLogMessage(message.data);
                     break;
 
             }
         }
 
-        private void ReadInuputLogMessage(byte[] bytes)
+        private void ReadInputLogMessage(byte[] bytes)
         {
             DataReader reader = new(bytes);
 
