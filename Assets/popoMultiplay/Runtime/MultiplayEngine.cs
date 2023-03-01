@@ -65,9 +65,6 @@ namespace JuhaKurisu.PopoTools.Multiplay
 
             // サーバーに最新のinput情報を送る
             SendInput();
-
-            // ロジックを実行
-            OnTick.Invoke(clients.Values.ToArray());
         }
 
         private void ReadMessage(byte[] bytes)
