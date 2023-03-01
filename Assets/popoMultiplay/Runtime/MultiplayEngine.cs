@@ -76,6 +76,9 @@ namespace JuhaKurisu.PopoTools.Multiplay
             {
                 case MessageType.Input:
                     ReadInputMessage(message.data);
+                    // ロジックを実行
+                    OnTick.Invoke(clients.Values.ToArray());
+                    break;
                     break;
 
             }
