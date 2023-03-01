@@ -19,7 +19,8 @@ public class TestLogic
                 counter[client.id]++;
         }
 
-        foreach (var id in counter.Keys)
+        ClientID[] removeKeys = counter.Keys.ToArray();
+        foreach (var id in removeKeys)
             if (!clientIDHashSet.Contains(id)) counter.Remove(id);
 
         elapsedFrame++;
