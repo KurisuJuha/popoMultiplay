@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 341ba3b91dd628341a19fd086c749fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: wss://052d-133-201-128-192.jp.ngrok.io
+  url: wss://49c4-133-201-128-192.jp.ngrok.io
   text: {fileID: 532769207}
 --- !u!1 &519420028
 GameObject:
