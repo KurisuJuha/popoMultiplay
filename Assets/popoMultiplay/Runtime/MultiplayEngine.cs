@@ -30,7 +30,6 @@ namespace JuhaKurisu.PopoTools.Multiplay
             webSocket.OnOpen += () => UnityEngine.Debug.Log("open");
             webSocket.OnOpen += () => OnConnected?.Invoke();
             webSocket.OnClose += closeCode => UnityEngine.Debug.Log($"close: {closeCode}");
-            webSocket.OnClose += closeCode => close = true;
             webSocket.OnClose += closeCode => OnClosed?.Invoke(closeCode);
             webSocket.OnMessage += bytes => OnMessage(bytes);
             webSocket.OnError += e => UnityEngine.Debug.Log(e);
