@@ -27,7 +27,7 @@ public class Test : PopoBehaviour
             .Join("\n");
     }
 
-    protected override async void OnApplicationQuit()
+    protected override async void OnDestroy()
     {
         await engine.End();
     }
