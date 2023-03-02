@@ -30,6 +30,7 @@ namespace JuhaKurisu.PopoTools.Multiplay
             webSocket.OnOpen += () => UnityEngine.Debug.Log("open");
             webSocket.OnOpen += () => OnConnected?.Invoke();
             webSocket.OnClose += closeCode => UnityEngine.Debug.Log($"close: {closeCode}");
+            webSocket.OnClose += closeCode => close = true;
             webSocket.OnClose += closeCode => OnClosed?.Invoke(closeCode);
             webSocket.OnMessage += bytes => OnMessage(bytes);
             webSocket.OnError += e => UnityEngine.Debug.Log(e);
@@ -49,17 +50,24 @@ namespace JuhaKurisu.PopoTools.Multiplay
 
         public async Task End()
         {
-            await webSocket.Close();
+            // 閉じたいよって送る
+            await SendCloseRequest();
+
+            // ついでにclientsもクリアしとく
             clients.Clear();
         }
 
         private void SendInput()
         {
-            webSocket.Send(MultiplayInput.NewInput().Serialize());
+            DataWriter writer = new DataWriter();
+            writer.Append(new Message(MessageType.Input, MultiplayInput.NewInput().Serialize()));
+            webSocket.Send(writer.bytes.ToArray()).Wait();
         }
 
         private void OnMessage(byte[] bytes)
         {
+            UnityEngine.Debug.Log(string.Join(",", bytes));
+
             // メッセージを読む
             ReadMessage(bytes);
 
@@ -80,9 +88,13 @@ namespace JuhaKurisu.PopoTools.Multiplay
                     OnTick.Invoke(clients.Values.ToArray());
                     break;
                 case MessageType.InputLog:
+                    // ログから復元
                     ReadInputLogMessage(message.data);
                     break;
-
+                case MessageType.Close:
+                    // 閉じていいよって言われたら閉じる
+                    UnityEngine.Debug.Log("accepted close request");
+                    break;
             }
         }
 
@@ -92,9 +104,14 @@ namespace JuhaKurisu.PopoTools.Multiplay
 
             int logCount = reader.ReadInt();
 
+            UnityEngine.Debug.Log(logCount);
+
             for (int i = 0; i < logCount; i++)
             {
-                ReadInputMessage(reader.ReadBytes());
+                byte[] b = reader.ReadBytes();
+
+                ReadInputMessage(b);
+
                 // ロジックを実行
                 OnTick.Invoke(clients.Values.ToArray());
             }
@@ -140,6 +157,18 @@ namespace JuhaKurisu.PopoTools.Multiplay
 
             // 残ったプレイヤーの存在を消す
             foreach (var id in oldClientIDs) clients.Remove(id);
+        }
+
+        private async Task SendCloseRequest()
+        {
+            await webSocket.Send(
+                new DataWriter()
+                    .Append(
+                        new Message(MessageType.Close, new byte[0])
+                    )
+                    .bytes
+                    .ToArray()
+            );
         }
     }
 }
