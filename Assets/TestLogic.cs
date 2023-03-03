@@ -18,11 +18,11 @@ public class TestLogic
             if (client.input.spaceButton)
                 counter[client.id]++;
         }
-
-        ClientID[] removeKeys = counter.Keys.ToArray();
-        foreach (var id in removeKeys)
-            if (!clientIDHashSet.Contains(id)) counter.Remove(id);
-
+        /*
+                ClientID[] removeKeys = counter.Keys.ToArray();
+                foreach (var id in removeKeys)
+                    if (!clientIDHashSet.Contains(id)) counter.Remove(id);
+        */
         elapsedFrame++;
     }
 }

@@ -27,12 +27,9 @@ namespace JuhaKurisu.PopoTools.Multiplay
             this.OnConnected = OnConnected;
             this.OnClosed = OnClosed;
             webSocket = new WebSocket(this.url);
-            webSocket.OnOpen += () => UnityEngine.Debug.Log("open");
             webSocket.OnOpen += () => OnConnected?.Invoke();
-            webSocket.OnClose += closeCode => UnityEngine.Debug.Log($"close: {closeCode}");
             webSocket.OnClose += closeCode => OnClosed?.Invoke(closeCode);
             webSocket.OnMessage += bytes => OnMessage(bytes);
-            webSocket.OnError += e => UnityEngine.Debug.Log(e);
         }
 
         public async Task Start()
@@ -65,8 +62,6 @@ namespace JuhaKurisu.PopoTools.Multiplay
 
         private void OnMessage(byte[] bytes)
         {
-            UnityEngine.Debug.Log(string.Join(",", bytes));
-
             // メッセージを読む
             ReadMessage(bytes);
 
@@ -91,8 +86,6 @@ namespace JuhaKurisu.PopoTools.Multiplay
                     ReadInputLogMessage(message.data);
                     break;
                 case MessageType.Close:
-                    // 閉じていいよって言われたら閉じる
-                    UnityEngine.Debug.Log("accepted close request");
                     break;
             }
         }
@@ -102,8 +95,6 @@ namespace JuhaKurisu.PopoTools.Multiplay
             DataReader reader = new(bytes);
 
             int logCount = reader.ReadInt();
-
-            UnityEngine.Debug.Log(logCount);
 
             for (int i = 0; i < logCount; i++)
             {
