@@ -1,10 +1,10 @@
 {
     "name": "jp.juhakurisu.popomultiplay",
     "displayName": "popoMultiplay",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "dependencies": {
         "com.endel.nativewebsocket": "1.1.4",
-        "jp.juhakurisu.popoByteSerializer": "2.0.0"
+        "jp.juhakurisu.popobyteserializer": "2.0.0"
     },
     "author": {
         "name": "JuhaKurisu"
